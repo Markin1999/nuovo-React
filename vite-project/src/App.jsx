@@ -1,35 +1,59 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function Welcome() {
+  return <div className="welcome">Welcome to the App!</div>;
 }
 
-export default App
+function CounterDisplay({ count }) {
+  const style = {
+    fontSize: "24px",
+    color: count % 2 === 0 ? "blue" : "green",
+  };
+
+  return <div style={style}>Counter: {count}</div>;
+}
+
+function Login() {
+  const [password, setPassword] = useState("");
+
+  const handleChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const buttonStyle = {
+    backgroundColor: password.length < 8 ? "red" : "green",
+    color: "white",
+    padding: "10px",
+    border: "none",
+    cursor: "pointer",
+  };
+
+  return (
+    <div>
+      <input
+        type="password"
+        placeholder="Enter password"
+        value={password}
+        onChange={handleChange}
+      />
+      <button style={buttonStyle}>Login</button>
+    </div>
+  );
+}
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Welcome />
+      <CounterDisplay count={count} />
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+      <Login />
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
